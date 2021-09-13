@@ -1,2 +1,5 @@
 # Juegos python
- Juegos de memoria
+ Integrantes:
+ Regina Rodriguez Sanchez
+ Juan Vargas Santos
+ Paulina Lopez Holguin
