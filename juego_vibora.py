@@ -18,6 +18,7 @@ from freegames import square, vector
 food = vector(0, 0)
 snake = [vector(10, 0)]
 aim = vector(0, -10)
+foodPos= vector(-15,15)
 color =['black', 'yellow', 'green', 'blue', 'purple']
 colorBody=random.choice(color)
 colorFood=random.choice(color)
@@ -29,6 +30,20 @@ def change(x, y):
     aim.x = x
     aim.y = y
 
+def changeFood(x, y):
+    "Change food position."
+    arrPaso=[-10,10,0]
+    if(x==151 or x==-151 or y==151 or y==-151):
+            x = 0
+            y = 0
+    else:
+        x = x+random.choice(arrPaso)
+        y = y+random.choice(arrPaso)
+
+    square(x, y, 9, colorFood
+    )
+
+
 
 def inside(head):
     "Return True if head inside boundaries."
@@ -39,6 +54,10 @@ def move():
     "Move snake forward one segment."
     head = snake[-1].copy()
     head.move(aim)
+    
+    #direccion=1
+
+    
 
     if not inside(head) or head in snake:
         square(head.x, head.y, 9, 'red')
@@ -60,8 +79,14 @@ def move():
         square(body.x, body.y, 9, colorBody
 )
 
-    square(food.x, food.y, 9, colorFood
-)
+    
+    arrPaso=[-1,1,0]
+    arrDir=[1,2,3,4]
+    direccion=random.choice(arrDir)
+    if(head != food):
+        changeFood(food.x,food.y)
+
+
     update()
     ontimer(move, 100)
 
