@@ -107,6 +107,8 @@ def world():
                 path.goto(x + 10, y + 10)
                 path.dot(2, 'white')
 
+def moveGhosts(point, course):
+    point.move(course)
 
 def move():
     "Move pacman and all ghosts."
@@ -131,11 +133,11 @@ def move():
     goto(pacman.x + 10, pacman.y + 10)
     dot(20, 'yellow')
 
-    #ontimer(moveGhosts,1000)
     for point, course in ghosts:
         #ontimer(ghosts.move, 80)
         if valid(point + course):
             point.move(course)
+            #ontimer(moveGhosts(point, course),100)
         else:
             options = [
                 vector(5, 0),
