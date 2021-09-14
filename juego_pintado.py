@@ -1,14 +1,12 @@
 """Paint, for drawing shapes.
-
 Exercises
-
 1. Add a color.
 2. Complete circle.
 3. Complete rectangle.
 4. Complete triangle.
 5. Add width parameter.
-
 """
+
 
 from turtle import *
 
@@ -39,17 +37,48 @@ def square(start, end):
 
 def circle(start, end):
     "Draw circle from start to end."
-    pass  # TODO
+    up()
+    goto(start.x, start.y)
+    down()
+    begin_fill()
+    rad =  end.x - start.x
+    dot(abs(rad))
+
+    end_fill()
 
 
 def rectangle(start, end):
     "Draw rectangle from start to end."
-    pass  # TODO
+    up()
+    goto(start.x, start.y)
+    down()
+    begin_fill()
+
+    for count in range(2):
+        forward(end.x - start.x)
+        left(90)
+        forward(end.y - start.y)
+        left(90)
+    
+
+    end_fill()
+   
 
 
 def triangle(start, end):
     "Draw triangle from start to end."
-    pass  # TODO
+    up()
+    goto(start.x, start.y)
+    down()
+    begin_fill()
+
+    forward(end.x - start.x)
+    left(90)
+    forward(end.y - start.y)
+    left(45)
+    
+
+    end_fill()
 
 
 def tap(x, y):
@@ -80,6 +109,7 @@ onkey(lambda: color('white'), 'W')
 onkey(lambda: color('green'), 'G')
 onkey(lambda: color('blue'), 'B')
 onkey(lambda: color('red'), 'R')
+onkey(lambda: color('purple'), 'P')
 onkey(lambda: store('shape', line), 'l')
 onkey(lambda: store('shape', square), 's')
 onkey(lambda: store('shape', circle), 'c')
