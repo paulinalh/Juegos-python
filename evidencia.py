@@ -15,6 +15,8 @@ from turtle import *
 
 from freegames import path
 
+stateScore = {'score': 0}
+writer = Turtle(visible=False)
 car = path('car.gif')
 tiles = list(range(32)) * 2
 state = {'mark': None}
@@ -46,8 +48,14 @@ def xy(count):
 
 def tap(x, y):
     "Update mark and hidden tiles based on tap."
+    writer.undo()
+    writer.write(stateScore['score'])
+
+    #clear()
+
     spot = index(x, y)
     mark = state['mark']
+    
 
     if mark is None or mark == spot or tiles[mark] != tiles[spot]:
         state['mark'] = spot
@@ -55,6 +63,9 @@ def tap(x, y):
         hide[spot] = False
         hide[mark] = False
         state['mark'] = None
+    stateScore['score'] += 1
+
+    
 
 
 def draw():
@@ -83,10 +94,14 @@ def draw():
 
 
 shuffle(tiles)
-setup(420, 420, 370, 0)
+setup(600, 420, 370, 0)
 addshape(car)
 hideturtle()
 tracer(False)
+writer.goto(250, 160)
+writer.color('black')
+writer.write(stateScore['score'])
+listen()
 onscreenclick(tap)
 draw()
 done()
