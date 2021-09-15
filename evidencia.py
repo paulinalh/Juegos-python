@@ -21,6 +21,7 @@ car = path('car.gif')
 tiles = list(range(32)) * 2
 state = {'mark': None}
 hide = [True] * 64
+letras=['A', 'B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5']
 
 
 def square(x, y):
@@ -46,26 +47,26 @@ def xy(count):
     return (count % 8) * 50 - 200, (count // 8) * 50 - 200
 
 
+
 def tap(x, y):
     "Update mark and hidden tiles based on tap."
-    writer.undo()
-    writer.write(stateScore['score'])
 
-    #clear()
+    #Se actualiza el contador de taps 
+    writer.undo()
+    writer.write(stateScore['score'], font=('Arial', 30, 'normal'))
+    stateScore['score'] += 1
 
     spot = index(x, y)
     mark = state['mark']
     
-
     if mark is None or mark == spot or tiles[mark] != tiles[spot]:
         state['mark'] = spot
     else:
         hide[spot] = False
         hide[mark] = False
         state['mark'] = None
-    stateScore['score'] += 1
-
     
+
 
 
 def draw():
@@ -81,11 +82,13 @@ def draw():
             square(x, y)
 
     mark = state['mark']
+    #m= state['mark']
+    #mark=letras[m]
 
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
-        goto(x + 2, y)
+        goto(x + 2, y )
         color('black')
         write(tiles[mark], font=('Arial', 30, 'normal'))
 
@@ -100,7 +103,7 @@ hideturtle()
 tracer(False)
 writer.goto(250, 160)
 writer.color('black')
-writer.write(stateScore['score'])
+writer.write(stateScore['score'], font=('Arial', 30, 'normal'))
 listen()
 onscreenclick(tap)
 draw()
