@@ -107,8 +107,11 @@ def world():
                 path.goto(x + 10, y + 10)
                 path.dot(2, 'white')
 
-def moveGhosts(point, course):
-    point.move(course)
+def moveGhosts(point):
+    if abs(pacman - point) < 20:
+            return
+
+    
 
 def move():
     "Move pacman and all ghosts."
@@ -134,10 +137,10 @@ def move():
     dot(20, 'yellow')
 
     for point, course in ghosts:
-        #ontimer(ghosts.move, 80)
+
         if valid(point + course):
-            point.move(course)
-            #ontimer(moveGhosts(point, course),100)
+                point.move(course)
+                #ontimer(moveGhosts(point, course),100)
         else:
             options = [
                 vector(5, 0),
@@ -148,16 +151,18 @@ def move():
             plan = choice(options)
             course.x = plan.x
             course.y = plan.y
-
         up()
         goto(point.x + 10, point.y + 10)
         dot(20, 'red')
-
+        
+    
     for point, course in ghosts:
+        #ontimer(moveGhosts(point),200)
         if abs(pacman - point) < 20:
             return
 
-    ontimer(move, 100)
+
+    ontimer(move, 50)
 
 
 def change(x, y):
