@@ -18,10 +18,11 @@ from freegames import path
 stateScore = {'score': 0}
 writer = Turtle(visible=False)
 car = path('car.gif')
-letras=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g' ]
+letras=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f' ]
 tiles = list(letras) * 2
 state = {'mark': None}
 hide = [True] * 64
+contHide={'contHide':0}
 
 
 def square(x, y):
@@ -54,7 +55,6 @@ def xy(count):
 
 def tap(x, y):
     "Update mark and hidden tiles based on tap."
-
     #Se actualiza el contador de taps 
     writer.undo()
     writer.write(stateScore['score'], font=('Arial', 30, 'normal'))
@@ -63,12 +63,18 @@ def tap(x, y):
     spot = index(x, y)
     mark = state['mark']
     
-    if mark is None or mark == spot or tiles[mark] != tiles[spot]:
+    if (contHide['contHide']==32):
+        write.undo()
+        writer.write("terminaste", font=('Arial', 10, 'normal'))
+        return
+    elif mark is None or mark == spot or tiles[mark] != tiles[spot]:
         state['mark'] = spot
     else:
         hide[spot] = False
         hide[mark] = False
+        contHide['contHide'] += 1
         state['mark'] = None
+    
     
 
 
@@ -105,7 +111,7 @@ setup(600, 420, 370, 0)
 addshape(car)
 hideturtle()
 tracer(False)
-writer.goto(250, 160)
+writer.goto(220, 160)
 writer.color('black')
 writer.write(stateScore['score'], font=('Arial', 30, 'normal'))
 listen()
