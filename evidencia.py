@@ -17,6 +17,7 @@ from freegames import path
 
 stateScore = {'score': 0}
 writer = Turtle(visible=False)
+finish = Turtle(visible=False)
 car = path('car.gif')
 letras=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f' ]
 tiles = list(letras) * 2
@@ -63,17 +64,19 @@ def tap(x, y):
     spot = index(x, y)
     mark = state['mark']
     
-    if (contHide['contHide']==32):
-        write.undo()
-        writer.write("terminaste", font=('Arial', 10, 'normal'))
-        return
-    elif mark is None or mark == spot or tiles[mark] != tiles[spot]:
+    
+    if mark is None or mark == spot or tiles[mark] != tiles[spot]:
         state['mark'] = spot
     else:
         hide[spot] = False
         hide[mark] = False
         contHide['contHide'] += 1
         state['mark'] = None
+
+    if (contHide['contHide']==32):
+        writer.undo()
+        writer.write("terminaste", font=('Arial', 10, 'normal'))
+        return
     
     
 
