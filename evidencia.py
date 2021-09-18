@@ -26,6 +26,7 @@ hide = [True] * 64
 contHide={'contHide':0}
 
 
+#Funcion que crea los cuadrados del memorama en blanco
 def square(x, y):
     "Draw white square with black outline at (x, y)."
     up()
@@ -41,15 +42,11 @@ def square(x, y):
 
 def index(x, y):
     "Convert (x, y) coordinates to tiles index."
-    #print("index")
-    #print(int((x + 200) // 50 + ((y + 200) // 50) * 8))
     return int((x + 200) // 50 + ((y + 200) // 50) * 8)
 
 
 def xy(count):
     "Convert tiles count to (x, y) coordinates."
-    #print("xy:")
-    #print((count % 8) * 50 - 200, (count // 8) * 50 - 200)
     return (count % 8) * 50 - 200, (count // 8) * 50 - 200
 
 
@@ -64,15 +61,16 @@ def tap(x, y):
     spot = index(x, y)
     mark = state['mark']
     
-    
+    #Condicion para esconder la letra del memorama o mostrarla
     if mark is None or mark == spot or tiles[mark] != tiles[spot]:
         state['mark'] = spot
     else:
         hide[spot] = False
         hide[mark] = False
-        contHide['contHide'] += 1
+        contHide['contHide'] += 1 #se suma 1 al contador de escondidos 
         state['mark'] = None
 
+    #muestra cuando el usuario termino el memorama
     if (contHide['contHide']==32):
         writer.undo()
         writer.write("terminaste", font=('Arial', 10, 'normal'))
@@ -95,8 +93,6 @@ def draw():
             square(x, y)
 
     mark = state['mark']
-    #m= state['mark']
-    #mark=letras[m]
 
     if mark is not None and hide[mark]:
         x, y = xy(mark)
